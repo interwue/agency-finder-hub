@@ -6,7 +6,8 @@ import AgencyCard from "@/components/AgencyCard";
 import AgencyDetailDrawer from "@/components/AgencyDetailDrawer";
 import SearchAndSort from "@/components/SearchAndSort";
 import MobileFilterDrawer from "@/components/MobileFilterDrawer";
-import { agencies, Agency } from "@/data/agencies";
+import { useAgencies } from "@/hooks/useAgencies";
+import type { Agency } from "@/data/agencies";
 
 const Index = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -23,6 +24,8 @@ const Index = () => {
     rating: 0,
     isHiring: false,
   });
+
+  const { data: agencies = [], isLoading } = useAgencies();
 
   const filteredAgencies = useMemo(() => {
     let result = agencies.filter((agency) => {
@@ -108,7 +111,7 @@ const Index = () => {
     });
 
     return result;
-  }, [searchQuery, sortBy, filters]);
+  }, [agencies, searchQuery, sortBy, filters]);
 
   const handleAgencyClick = (agency: Agency) => {
     setSelectedAgency(agency);
@@ -158,7 +161,22 @@ const Index = () => {
                 showFiltersButton={true}
               />
 
-              {filteredAgencies.length > 0 ? (
+              {isLoading ? (
+                <div className="space-y-4">
+                  {[...Array(3)].map((_, i) => (
+                    <div key={i} className="bg-card rounded-xl p-6 shadow-card animate-pulse">
+                      <div className="flex gap-4">
+                        <div className="w-16 h-16 bg-muted rounded-lg" />
+                        <div className="flex-1 space-y-3">
+                          <div className="h-5 bg-muted rounded w-1/3" />
+                          <div className="h-4 bg-muted rounded w-1/2" />
+                          <div className="h-4 bg-muted rounded w-full" />
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : filteredAgencies.length > 0 ? (
                 <div className="space-y-4">
                   {filteredAgencies.map((agency) => (
                     <AgencyCard
