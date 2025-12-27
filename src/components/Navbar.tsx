@@ -1,19 +1,16 @@
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
 import { Button } from "./ui/button";
-
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-
-  return (
-    <header className="sticky top-0 z-50 bg-card/95 backdrop-blur-md border-b border-border">
+  return <header className="sticky top-0 z-50 bg-card/95 backdrop-blur-md border-b border-border">
       <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 rounded-lg bg-accent flex items-center justify-center">
               <span className="text-accent-foreground font-bold text-sm">A</span>
             </div>
-            <span className="font-display text-xl font-semibold text-foreground">AgencyHub</span>
+            <span className="font-display text-xl font-semibold text-foreground">AgenSeas</span>
           </div>
 
           {/* Desktop Navigation */}
@@ -42,17 +39,13 @@ const Navbar = () => {
           </div>
 
           {/* Mobile menu button */}
-          <button
-            className="md:hidden p-2 text-foreground"
-            onClick={() => setIsOpen(!isOpen)}
-          >
+          <button className="md:hidden p-2 text-foreground" onClick={() => setIsOpen(!isOpen)}>
             {isOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
 
         {/* Mobile Navigation */}
-        {isOpen && (
-          <div className="md:hidden py-4 border-t border-border animate-fade-in">
+        {isOpen && <div className="md:hidden py-4 border-t border-border animate-fade-in">
             <div className="flex flex-col gap-4">
               <a href="#" className="text-sm font-medium text-foreground py-2">
                 Browse
@@ -75,11 +68,8 @@ const Navbar = () => {
                 </Button>
               </div>
             </div>
-          </div>
-        )}
+          </div>}
       </nav>
-    </header>
-  );
+    </header>;
 };
-
 export default Navbar;
